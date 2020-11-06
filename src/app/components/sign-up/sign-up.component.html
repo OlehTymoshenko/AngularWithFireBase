@@ -5,17 +5,21 @@
         <h3>Sign Up</h3>
   
         <div class="formGroup">
-            <input type="text" class="formControl" placeholder="Your name" #userName required>
+            <input type="text" class="formControl" placeholder="Your name *" #userName required>
           </div>
 
         <div class="formGroup">
-          <input type="email" class="formControl" placeholder="Email Address" #userEmail required>
+          <input type="email" class="formControl" placeholder="Email Address *" #userEmail required>
         </div>
   
         <div class="formGroup">
-          <input type="password" class="formControl" placeholder="Password" #userPwd required>
+          <input type="password" class="formControl" placeholder="Password *" #userPwd required>
         </div>
         
+        <div class="formGroup">
+          <input type="password" class="formControl" placeholder="Repeat password *" #userPwdRepeat required>
+        </div>
+
         <div class="formGroup">
           <input type="text" class="formControl" placeholder="Photo URL" #userPhotoURL>
         </div>
