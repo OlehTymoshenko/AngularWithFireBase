@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -15,20 +16,23 @@ import { ProfileInfoComponent } from './components/profile-info/profile-info.com
 
 // Auth service
 import { AuthService } from "./shared/services/auth.services";
+import { SideBarMenuComponent } from './components/side-bar-menu/side-bar-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
     SignUpComponent,
-    ProfileInfoComponent
+    ProfileInfoComponent,
+    SideBarMenuComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
