@@ -1,11 +1,8 @@
-import { jitOnlyGuardedExpression } from '@angular/compiler/src/render3/util';
 import { Injectable, NgZone } from '@angular/core';
-// import { User } from '../services/user'; // for saving user in FireStorage
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import firebase from 'firebase/app';
-import { User } from './user';
 
 @Injectable({
     providedIn: 'root'
@@ -55,9 +52,10 @@ export class AuthService {
         
     }
 
-    SignUp(email, password) {
+    SignUp(email, password, userName, photoURL) {
         return this.afAuth.createUserWithEmailAndPassword(email, password)
         .then((result) => {
+            result.user.updateProfile({displayName: userName, photoURL: photoURL});
             this.ngZone.run(() => {
                 this.router.navigate(['user-info'])
             })
