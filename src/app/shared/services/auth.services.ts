@@ -21,10 +21,10 @@ export class AuthService {
             if(user) {
                 this.userData = user;
                 localStorage.setItem('user', JSON.stringify(this.userData));
-                this.router.navigate(['user-info']);
+                this.router.navigate(['/dashboard/user-info']);
             } else {
                 localStorage.setItem('user', null);
-                this.router.navigate(['sign-in']);
+                this.router.navigate(['/auth/sign-in']);
             }
         })
     }
@@ -33,7 +33,7 @@ export class AuthService {
         return this.afAuth.signInWithEmailAndPassword (email, password)
             .then((result) => {
                 this.ngZone.run(() =>{
-                    this.router.navigate(['user-info'])
+                    this.router.navigate(['/dashboard/user-info'])
                 })
             }).catch((error) => {
                 window.alert(error.message);
@@ -45,7 +45,7 @@ export class AuthService {
         provider.addScope('email');
         return this.afAuth.signInWithPopup(provider)
         .then((result) => {
-                this.router.navigate(['user-info']);
+                this.router.navigate(['/dashboard/user-info']);
             }).catch((error) => {
                 window.alert(error.message);
             });
@@ -57,7 +57,7 @@ export class AuthService {
         .then((result) => {
             result.user.updateProfile({displayName: userName, photoURL: photoURL});
             this.ngZone.run(() => {
-                this.router.navigate(['user-info'])
+                this.router.navigate(['/dashboard/user-info'])
             })
         }).catch((error) => {
             window.alert(error.message);
@@ -70,8 +70,7 @@ export class AuthService {
         console.log (this.afAuth.user);
         return this.afAuth.signOut()
         .then(() => {
-            localStorage.removeItem('user');
-            this.router.navigate(['sign-in']);
+            this.router.navigate(['/auth/sign-in']);
         })
     }
     
