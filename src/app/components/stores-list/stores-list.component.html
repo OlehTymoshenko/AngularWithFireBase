@@ -1,0 +1,28 @@
+<div class="inner-adjust">
+    <div class="pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2"> Stores list </h1>
+        <button class="btn btn-outline-primary action" (click)="addStore()" type="button">
+            Add new store
+
+        </button>
+    </div>
+      <!-- Show user data when logged in -->
+      <div class="row">
+        <div class="list-group users-list">
+            <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="row">
+                    <div class="col col-md-8 text-col">
+                        <h5 class="mb-1"> Store name: <strong> {{item.payload.doc.data().name}} </strong> </h5>
+                        <h6> Address: <strong> {{item.payload.doc.data().address}} </strong> </h6>
+                        <h6> Phone number: <strong> {{item.payload.doc.data().phoneNumber}} </strong> </h6>
+                    </div>
+                    <div class="col col-md-2 actions-col">
+                        <button class="btn btn-outline-primary action" (click)="viewDetails(item)" type="button">
+                            <ion-icon class="icon" name="arrow-round-forward"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+</div>

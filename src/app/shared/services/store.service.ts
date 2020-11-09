@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, DocumentReference } from '@angular/fire/firestore';
 import { Store } from '../models/store';
 
 @Injectable({
@@ -14,14 +14,21 @@ export class StoreService {
     this.storesRef = afs.collection(this.dbPath);
   }
 
-   getAll(): AngularFirestoreCollection<Store> {
-     
-      return this.storesRef;
+   getAll(): Promise<DocumentChangeAction<Store>[]> {
+      return new Promise<DocumentChangeAction<Store>[]>((resolve, reject) => {
+        this.storesRef.snapshotChanges()
+          .subscribe(snapshot => {
+            resolve(snapshot);
+          })
+      })
    }
 
    create(store: Store): Promise<DocumentReference> {
-     this.afs
-     return this.storesRef.add(store);
+     return this.storesRef.add({
+              name: store.name,
+              address: store.address,
+              phoneNumber: store.phoneNumber
+     });
    }
    
    update(id:string, store: Store): Promise<void> {
