@@ -40,8 +40,7 @@ export class StoreCreateComponent implements OnInit {
       name: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
       phoneNumber: new FormControl('', Validators.required)
-    }) 
-
+    }); 
   }
 
   createForm() {
@@ -57,7 +56,7 @@ export class StoreCreateComponent implements OnInit {
       .then(
         res => {
           this.resetFields();
-          this.router.navigate(['/dashboard/stores/list']);
+          this.router.navigate(['/dashboard/store/list']);
         }
       )
   }
