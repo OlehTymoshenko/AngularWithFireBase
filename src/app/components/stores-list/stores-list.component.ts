@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { StoreService } from '../../shared/services/store.service';
 import { Router } from '@angular/router';
 import { Store } from 'src/app/shared/models/store';
-import { DocumentChangeAction } from '@angular/fire/firestore';
+import { DocumentChangeAction, DocumentReference } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-stores-list',
@@ -29,11 +29,14 @@ export class StoresListComponent implements OnInit {
   }
 
   viewDetails(id: string) {
-    // TODO. Make an navigation to update store
+
+    this.router.navigate(['/dashboard/store/fullInfo', id])
   }
 
   addStore() {
     this.router.navigate(['/dashboard/store/add']);
   }
+
+  
 
 }

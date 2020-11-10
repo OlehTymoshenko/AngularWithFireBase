@@ -1,20 +1,17 @@
-<div class="inner-adjust">
-      
-  <div class="pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">User Profile</h1>
+<div class = "">
+  <div>
+    <h1 >User Profile</h1>
   </div>
   <!-- Show user data when logged in -->
   <div class="row" *ngIf="authService.userData as user">
-    <div class="col-md-12">
-      <div class="media">
-        <img class="align-self-start mr-5 img-thumbnail rounded-circle" src="{{(user.photoURL) ? user.photoURL : 'https://suryahospitals.com/jaipur/wp-content/uploads/sites/3/2020/07/user-dummy-200x200-1.png'}}"
-          alt="{{user.displayName}}">
-        <div class="media-body">
-          <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
-          <p>User ID: <strong>{{user.uid}}</strong></p>
-          <p>Email: <strong>{{user.email}}</strong></p>
-        </div>
-      </div>
+    <div class="col col-md-2">
+      <img class="col col-md-10 image-col" src="{{(user.photoURL) ? user.photoURL : 'https://suryahospitals.com/jaipur/wp-content/uploads/sites/3/2020/07/user-dummy-200x200-1.png'}}"
+        alt="{{user.displayName}}">
+    </div>
+    <div class="col col-md-8 text-col">
+      <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
+      <p>User ID: <strong>{{user.uid}}</strong></p>
+      <p>Email: <strong>{{user.email}}</strong></p>
     </div>
   </div>
 </div>

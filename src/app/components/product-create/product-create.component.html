@@ -1,0 +1,56 @@
+<div class="inner-adjust">
+      
+    <div class="pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2"> Add new Product </h1>
+    </div>
+    <!-- Show user data when logged in -->
+    <div class="row">
+        <div class="col col-md-8">
+
+            <form [formGroup]="addProductForm" novalidate (ngSubmit)="onSubmit(addProductForm.value)">
+    
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="Name" class="form-control" formControlName="name">
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validation_messages.name">
+                  <mat-error *ngIf="addProductForm.get('name').hasError(validation.type) && (addProductForm.get('name').dirty || addProductForm.get('name').touched)">{{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+    
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="Price" class="form-control" formControlName="price">
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validation_messages.price">
+                  <mat-error *ngIf="addProductForm.get('price').hasError(validation.type) && (addProductForm.get('price').dirty || addProductForm.get('price').touched)">{{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+    
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="Product photo URL" class="form-control" formControlName="photoUrl">
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validation_messages.photoUrl">
+                  <mat-error *ngIf="addProductForm.get('photoUrl').hasError(validation.type) && (addProductForm.get('photoUrl').dirty || addProductForm.get('photoUrl').touched)">{{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="Product description" class="form-control" formControlName="description">
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validation_messages.description">
+                  <mat-error *ngIf="addProductForm.get('description').hasError(validation.type) && (addProductForm.get('description').dirty || addProductForm.get('description').touched)">{{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+    
+              <div class="form-group">
+                <div class="col-md-4">
+                  <button mat-raised-button class="btn btnPrimary" color="primary" type="submit" [disabled]="!addProductForm.valid">Create</button>
+                </div>
+              </div>
+            </form>
+        </div>
+    </div>
+  </div>

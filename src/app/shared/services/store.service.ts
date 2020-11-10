@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, DocumentReference } from '@angular/fire/firestore';
+import { Product } from '../models/product';
 import { Store } from '../models/store';
 
 @Injectable({
@@ -23,12 +24,28 @@ export class StoreService {
       })
    }
 
-   create(store: Store): Promise<DocumentReference> {
-     return this.storesRef.add({
-              name: store.name,
-              address: store.address,
-              phoneNumber: store.phoneNumber
+   create(store: Store): DocumentReference { 
+    
+    let newDocRef: DocumentReference; 
+    
+    // add document 
+    this.storesRef.add({
+      name: store.name,
+      address: store.address,
+      phoneNumber: store.phoneNumber
+     }).then((result) => {
+       newDocRef = result;
      });
+
+    // add products collection to new document
+    if(store.productsList !== undefined && store.productsList !== null) {
+      let productsCollectionRef = newDocRef.collection('products');
+      store.productsList.forEach(product => {
+        productsCollectionRef.add(product);
+      });
+    } 
+
+    return newDocRef;
    }
    
    update(id:string, store: Store): Promise<void> {

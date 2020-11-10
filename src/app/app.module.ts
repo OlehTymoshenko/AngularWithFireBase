@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,12 +17,16 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ProfileInfoComponent } from './components/profile-info/profile-info.component';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
-import { ProductsListComponent } from './components/products-list/products-list.component';
 import { StoreCreateComponent } from './components/store-create/store-create.component';
 import { StoresListComponent } from './components/stores-list/stores-list.component';
+import { ProductCreateComponent } from './components/product-create/product-create.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { StoreFullInfoComponent } from './components/store-full-info/store-full-info.component';
 
-// Auth service
+// Services
 import { AuthService } from "./shared/services/auth.services";
+import { StoreService } from './shared/services/store.service';
+import { ProductService } from './shared/services/product.service';
 
 // material
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -30,8 +34,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDialogModule } from '@angular/material/dialog';
-import { StoreService } from './shared/services/store.service';
-import { ProductService } from './shared/services/product.service';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -42,9 +47,10 @@ import { ProductService } from './shared/services/product.service';
     ProfileInfoComponent,
     MainLayoutComponent,
     StoresListComponent,
-    ProductsListComponent,
     StoreCreateComponent,
-    
+    ProductCreateComponent,
+    ProductListComponent,
+    StoreFullInfoComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -56,10 +62,12 @@ import { ProductService } from './shared/services/product.service';
     AppRoutingModule,
     MatButtonModule,
     MatInputModule,
-    BrowserAnimationsModule
+    MatListModule,
+    MatSidenavModule,
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [AuthService, StoreService, ProductService],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

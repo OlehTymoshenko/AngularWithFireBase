@@ -1,0 +1,22 @@
+.sidenav-container {
+    height: 100%;
+    padding: 10px 0;
+}
+
+.sidenav a {
+    font-size: 18px;
+    display: block
+}
+
+.sidenav i {
+    padding: 0px 10px 0px 0px;
+}
+
+.sidenav .mat-list-item:hover {
+    color: #007bff;
+    background-color: gainsboro;
+}
+
+.sidenav-content {
+    padding: 0px 30px;
+}

@@ -1,34 +1,28 @@
-    <!-- Sidebar navigation -->
-    <div class="container-fluid">
-        <div class="row">
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" opened class="sidenav">
+    <mat-nav-list>
+
+        <a mat-list-item routerLink="/dashboard/user-info">
+          <i class="material-icons">account_box</i>Profile
+        </a>
+
+        <a mat-list-item routerLink="/dashboard/store/list">
+          <i class="material-icons">store</i>Stores
+        </a>
+
+        <a mat-list-item routerLink="/dashboard/product/list">
+          <i class="fab fa-product-hunt" aria-hidden="true"></i>Products
+        </a>
       
-          <nav class="col-md-2 d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-              <ul class="nav flex-column">
-                <li class="nav-item">
-                  <a class="nav-link active" routerLink="/dashboard/user-info">
-                    <i class="fas fa-user"></i>User Profile
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" routerLink="/dashboard/store/list">
-                    <i class="fas fa-user"></i> Stores list
-                  </a>
-                </li>
-                <!-- Calling SignOut() Api from AuthService -->
-                <li class="nav-item">
-                  <a class="nav-link" (click)="authService.SignOut()">
-                    <i class="fas fa-sign-out-alt"></i>Log out
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-      
-          <!-- Main content -->
-          <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <router-outlet></router-outlet>
-          </main>
-      
-        </div>
+        <a mat-list-item (click)="authService.SignOut()"> 
+          <i class="material-icons">exit_to_app</i>Log out 
+        </a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="sidenav-content">
+      <div class="components-container">
+        <router-outlet></router-outlet>
       </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>    

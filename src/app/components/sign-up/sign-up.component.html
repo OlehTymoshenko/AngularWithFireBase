@@ -1,37 +1,52 @@
 <div class="displayTable">
-    <div class="displayTableCell">
-  
+  <div class="displayTableCell">
       <div class="authBlock">
-        <h3>Sign Up</h3>
-  
-        <div class="formGroup">
-            <input type="text" class="formControl" placeholder="Your name *" #userName required>
-          </div>
+          <h2>Sign Up</h2>
+          <div >
+              <form class="signin-form">
+                  <mat-form-field class="form-group">
+                    <mat-label>Name</mat-label>
+                    <input type="text" class="formControl" matInput placeholder="Name" #userName required>
+                  </mat-form-field>
+                  <br>
 
-        <div class="formGroup">
-          <input type="email" class="formControl" placeholder="Email Address *" #userEmail required>
-        </div>
-  
-        <div class="formGroup">
-          <input type="password" class="formControl" placeholder="Password *" #userPwd required>
-        </div>
+                  <mat-form-field class="form-group">
+                    <mat-label>Email-address</mat-label>
+                    <input type="email" class="formControl" matInput placeholder="Email Address" #userEmail required>
+                  </mat-form-field>
+                  <br>
+                  
+                  <mat-form-field class="form-group">
+                    <mat-label>Password</mat-label>
+                    <input type="password" class="formControl" matInput placeholder="Password" minlength="6" #userPwd required>
+                  </mat-form-field>
+                  <br>
+                  
+                  <mat-form-field class="form-group">
+                    <mat-label>Photo Url</mat-label>
+                    <input type="text" class="formControl" matInput placeholder="Photo URL" minlength="6" #userPhotoURL required>
+                  </mat-form-field>
+                  <br>
+                  
+                  <input type="button" class="btn btn-primary" placeholder="Password" minlength="6" #userPassword required
+                       value="Sign up" (click)="authService.SignUp(userEmail.value, userPwd.value, userName.value, userPhotoURL.value)">
+              </form>
 
-        <div class="formGroup">
-          <input type="text" class="formControl" placeholder="Photo URL" #userPhotoURL>
-        </div>
-  
-        <div class="formGroup">
-          <input type="button" class="btn btnPrimary" value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value, userName.value, userPhotoURL.value)">
-        </div>
-  
-        <div class="formGroup">
-          <span class="or"><span class="orInner">Or</span></span>
-        </div>
+              <div class="form-group">
+                  <span class="or"><span class="orInner">Or</span></span>
+              </div>
 
-  
-      <div class="redirectToLogin">
-        <span>Already have an account? <span class="redirect" routerLink="/auth/sign-in">Log In</span></span>
+              <div class="form-group">
+                  <button type="button" class="btn facebookBtn" (click)="authService.FacebookLogin()">
+                  <i class="fab fa-facebook-f"></i>
+                  Log in with Facebook
+              </button>
+              </div>
+
+              <div class="redirectToLogin">
+                  <span>Don't have an account?<span class="redirect" routerLink="/auth/sign-in"> Sign In</span></span>
+              </div>
+          <div>
       </div>
-    </div>
-  
   </div>
+</div>

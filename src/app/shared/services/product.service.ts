@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, DocumentReference } from '@angular/fire/firestore';
 import { Product } from '../models/product';
 
 @Injectable({
@@ -13,8 +13,8 @@ export class ProductService {
     this.productsRef = afs.collection(this.dbPath);
   }
   
-  getAll(): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
+  getAll(): Promise<DocumentChangeAction<Product>[]> {
+    return new Promise<DocumentChangeAction<Product>[]>((resolve, reject) => {
       this.productsRef.snapshotChanges()
         .subscribe(snapshot => {
           resolve(snapshot);
@@ -23,9 +23,14 @@ export class ProductService {
  }
 
  create(product: Product): Promise<DocumentReference> {
-   return this.productsRef.add(product);
+   return this.productsRef.add({
+     name: product.name,
+     price: product.price,
+     photoUrl: product.photoUrl,
+     description: product.description
+   });
  }
- 
+
  update(id:string, store: Product): Promise<void> {
    return this.productsRef.doc(id).update(store);
  }
