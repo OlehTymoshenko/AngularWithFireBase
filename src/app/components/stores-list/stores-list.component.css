@@ -1,0 +1,16 @@
+.card-container {
+    background-color: teal;
+    margin: 10px;
+}
+
+.list-header h1 {
+    letter-spacing: 2px;
+}
+
+.list-header button {
+    margin: 10px;
+}
+
+.row-container {
+    justify-content: space-evenly;
+}
