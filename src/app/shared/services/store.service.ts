@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, DocumentReference } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentChange, DocumentChangeAction, DocumentReference, DocumentSnapshot, } from '@angular/fire/firestore';
 import { Product } from '../models/product';
 import { Store } from '../models/store';
 
@@ -22,6 +23,10 @@ export class StoreService {
             resolve(snapshot);
           })
       })
+   }
+
+   getById(id : string) : AngularFirestoreDocument<Store> {
+      return this.storesRef.doc<Store>(id);
    }
 
    create(store: Store): DocumentReference { 

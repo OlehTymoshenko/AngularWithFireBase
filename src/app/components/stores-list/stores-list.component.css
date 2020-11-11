@@ -1,10 +1,18 @@
 .card-container {
-    background-color: teal;
-    margin: 10px;
+    border: 2px pink solid;
+    box-shadow: 0 0 2px pink;
+    background-color: ghostwhite;
+    margin: 1%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .list-header h1 {
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    margin: 20px;
+    font-size: 26px;
+
 }
 
 .list-header button {
@@ -12,5 +20,10 @@
 }
 
 .row-container {
-    justify-content: space-evenly;
+    /* justify-content: space-between;  */
+}
+
+.mat-button {
+    font-size: 18px;
+    box-shadow: 0 0 2px pink;
 }

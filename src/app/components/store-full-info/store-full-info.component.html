@@ -1,27 +1,55 @@
-<div class="inner-adjust">
-    <!-- <div class="pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2"> Stores list </h1>
-        <button class="btn btn-outline-primary action" (click)="addStore()" type="button">
-            Add new store
-        </button>
-    </div>
-    
-    <div class="row">
+<div class="">
+    <div class="list-header">
+        <div class="text-center">
+            <h1>  {{(currentStoreVal | async).name}} </h1>
+            <h3> Address: {{(currentStoreVal | async).address}} </h3>
+            <h3> Phone number:  {{(currentStoreVal | async).phoneNumber}}  </h3>
+        </div>
+        <!-- Show user data when logged in -->
         <div class="">
-            <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="row">
-                    <div class="col col-md-8 col-md-push-2 text-col">
-                        <h2> Store name: <strong> {{item.payload.doc.data().name}} </strong> </h2>
-                        <h3> Address: <strong> {{item.payload.doc.data().address}} </strong> </h3>
-                        <h3> Phone number: <strong> {{item.payload.doc.data().phoneNumber}} </strong> </h3>
-                    </div>
-                    <div class="col col-md-2 actions-col">
-                        <button class="btn btn-outline-primary action" (click)="viewDetails(item.payload.doc.id)" type="button">
-                            <ion-icon class="icon" name="arrow-round-forward"></ion-icon>
-                        </button>
-                    </div>
+            <div class="row row-container">
+                <div *ngFor="let product of storeProducts | async" class="col-sm-12 col-md-6 col-lg-3">
+                    <!-- <div class="card">
+                        <div class="card-img">
+                            <img [src] = "product.payload.doc.data().photoUrl" class="img-fluid img-rounded img-card-own">
+                        </div>
+                        <div class="card-title">
+                            <h2>Product: {{ product.payload.doc.data().name}}</h2>
+                        </div>
+                        <div class="card-body">
+                            <h4> Price: {{ product.payload.doc.data().price | currency}} </h4>
+                        </div>
+                        <div class="card-footer">
+                            <h4>Description</h4>
+                            <h5>  {{ product.payload.doc.data().description }} </h5>
+                        </div>
+                    </div> -->
+                    
+                    
+                    <mat-card class="product-card">
+                        <img mat-card-image src="{{ (product.payload.doc.data().photoUrl) ? product.payload.doc.data().photoUrl : 'https://i.pinimg.com/originals/8a/eb/d8/8aebd875fbddd22bf3971c3a7159bdc7.png' }}" 
+                            width="250" height="250" class="product-img" [alt]="product.payload.doc.data().name">
+                        <mat-card-title>
+                            <h2>Product: {{ product.payload.doc.data().name}}</h2>
+                        </mat-card-title>
+                        <mat-card-subtitle>
+                            <h4> Price: {{ product.payload.doc.data().price | currency}} </h4>
+                        </mat-card-subtitle>
+                        <mat-card-content color="accent">
+                            <h4>Description</h4>
+                            <h5>{{ product.payload.doc.data().description }}</h5>
+                        </mat-card-content>
+
+                        <!-- <mat-card-actions class="text-center">
+                            <div class="text-center">
+                                <button mat-button color="accent" (click)="viewDetails(item.payload.doc.id)">
+                                    Go to store products                
+                                </button>
+                            </div>
+                        </mat-card-actions> -->
+                    </mat-card>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 </div>

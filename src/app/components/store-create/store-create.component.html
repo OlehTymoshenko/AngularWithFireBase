@@ -1,48 +1,48 @@
-<div class="inner-adjust">
+<div class="container form-container">
       
     <div class="pt-3 pb-2 mb-3 border-bottom">
       <h1 class="h2"> Add new Store </h1>
     </div>
     <!-- Show user data when logged in -->
-    <div class="row">
-        <div class="col col-md-8">
+      <div class="row">
+          <div class="col-md-12 ">
 
-            <form [formGroup]="addStoreForm" novalidate (ngSubmit)="onSubmit(addStoreForm.value)">
-    
-              <div class="form-group">
-                <mat-form-field class="input-style">
-                  <input matInput placeholder="Name" class="form-control" formControlName="name">
-                </mat-form-field>
-                <ng-container *ngFor="let validation of validation_messages.name">
-                  <mat-error *ngIf="addStoreForm.get('name').hasError(validation.type) && (addStoreForm.get('name').dirty || addStoreForm.get('name').touched)">{{validation.message}}</mat-error>
-                </ng-container>
-              </div>
-    
-              <div class="form-group">
-                <mat-form-field class="input-style">
-                  <input matInput placeholder="Address" class="form-control" formControlName="address">
-                </mat-form-field>
-                <ng-container *ngFor="let validation of validation_messages.address">
-                  <mat-error *ngIf="addStoreForm.get('address').hasError(validation.type) && (addStoreForm.get('address').dirty || addStoreForm.get('address').touched)">{{validation.message}}</mat-error>
-                </ng-container>
-              </div>
-    
-              <div class="form-group">
-                <mat-form-field class="input-style">
-                  <input matInput placeholder="Phone number" class="form-control" formControlName="phoneNumber">
-                </mat-form-field>
-                <ng-container *ngFor="let validation of validation_messages.phoneNumber">
-                  <mat-error *ngIf="addStoreForm.get('phoneNumber').hasError(validation.type) && (addStoreForm.get('phoneNumber').dirty || addStoreForm.get('phoneNumber').touched)">{{validation.message}}</mat-error>
-                </ng-container>
-              </div>
-    
-              <div class="form-group">
-                <div class="col-md-4">
-                  <button mat-raised-button class="btn btnPrimary" color="primary" type="submit" [disabled]="!addStoreForm.valid">Create</button>
+              <form [formGroup]="addStoreForm" novalidate (ngSubmit)="onSubmit(addStoreForm.value)">
+      
+                <div class="form-group">
+                  <mat-form-field class="input-style">
+                    <input matInput placeholder="Name" class="form-control" formControlName="name">
+                  </mat-form-field>
+                  <ng-container *ngFor="let validation of validation_messages.name">
+                    <mat-error *ngIf="addStoreForm.get('name').hasError(validation.type) && (addStoreForm.get('name').dirty || addStoreForm.get('name').touched)">{{validation.message}}</mat-error>
+                  </ng-container>
                 </div>
-              </div>
-    
-            </form>
-        </div>
+      
+                <div class="form-group">
+                  <mat-form-field class="input-style">
+                    <input matInput placeholder="Address" class="form-control" formControlName="address">
+                  </mat-form-field>
+                  <ng-container *ngFor="let validation of validation_messages.address">
+                    <mat-error *ngIf="addStoreForm.get('address').hasError(validation.type) && (addStoreForm.get('address').dirty || addStoreForm.get('address').touched)">{{validation.message}}</mat-error>
+                  </ng-container>
+                </div>
+      
+                <div class="form-group">
+                  <mat-form-field class="input-style">
+                    <input matInput placeholder="Phone number" class="form-control" formControlName="phoneNumber">
+                  </mat-form-field>
+                  <ng-container *ngFor="let validation of validation_messages.phoneNumber">
+                    <mat-error *ngIf="addStoreForm.get('phoneNumber').hasError(validation.type) && (addStoreForm.get('phoneNumber').dirty || addStoreForm.get('phoneNumber').touched)">{{validation.message}}</mat-error>
+                  </ng-container>
+                </div>
+      
+                <div class="form-group">
+                  <div class="text-center">
+                    <button mat-raised-button color="accent" type="submit" [disabled]="!addStoreForm.valid">Create</button>
+                  </div>
+                </div>
+      
+              </form>
+          </div>
     </div>
   </div>

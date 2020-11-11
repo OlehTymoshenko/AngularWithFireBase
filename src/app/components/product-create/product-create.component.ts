@@ -61,13 +61,13 @@ export class ProductCreateComponent implements OnInit {
   onSubmit(value) {
     this.productService
 
-    this.productService.create(value)
-      .then(
-        res => {
-          this.resetFields();
-          this.router.navigate(['/dashboard/product/list']);
-        }
-      );
+    // this.productService.create(value)
+    //   .then(
+    //     res => {
+    //       this.resetFields();
+    //       this.router.navigate(['/dashboard/product/list']);
+    //     }
+    //   );
   }
 
 }

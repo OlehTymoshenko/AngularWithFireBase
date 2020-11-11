@@ -13,8 +13,7 @@
 }
 
 .sidenav .mat-list-item:hover {
-    color: #007bff;
-    background-color: gainsboro;
+    background-color: pink;
 }
 
 .sidenav-content {

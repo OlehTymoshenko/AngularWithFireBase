@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { StoreService } from '../../shared/services/store.service';
 import { Router } from '@angular/router';
 import { Store } from 'src/app/shared/models/store';
-import { DocumentChangeAction, DocumentReference } from '@angular/fire/firestore';
+import { DocumentChangeAction } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-stores-list',

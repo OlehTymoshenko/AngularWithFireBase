@@ -3,6 +3,7 @@ import { DocumentChangeAction } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Product } from '../../shared/models/product';
 import { ProductService } from '../../shared/services/product.service';
+import { Observable, Observer } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -11,18 +12,15 @@ import { ProductService } from '../../shared/services/product.service';
 })
 export class ProductListComponent implements OnInit {
 
-  items: DocumentChangeAction<Product>[];
+  items: Promise<Product[]> = null;
 
   constructor(
     public productService: ProductService,
     private router: Router
   ) { }
 
-  ngOnInit(): void {
-    this.productService.getAll()
-      .then((result) => {
-        this.items = result;
-      });
+  async ngOnInit(): Promise<void> {
+    this.items = this.productService.getAllProductsFromAllStores();
   }
 
   addProduct() {

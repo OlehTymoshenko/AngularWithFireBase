@@ -1,14 +1,14 @@
-<div class="inner-adjust">
-    <div class="pt-3 pb-2 mb-3 border-bottom">
+<div class="">
+    <div class="">
         <h1 class="h2"> Products list </h1>
-        <button class="btn btn-outline-primary action" (click)="addProduct()" type="button">
+        <button class="" (click)="addProduct()" type="button">
             Add new product
         </button>
     </div>
     <!-- Show user data when logged in -->
     <div class="row">
         <div class="">
-            <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div *ngFor="let item of items | async" class="">
                 <div class="row">
                     <div class="col col-md-2 image-col">
                         <img class="image" [src] = "item.payload.doc.data().photoUrl">

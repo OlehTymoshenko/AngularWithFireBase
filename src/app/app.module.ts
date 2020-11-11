@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,17 +11,6 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 
-// Components
-import { AppComponent } from './app.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { ProfileInfoComponent } from './components/profile-info/profile-info.component';
-import { MainLayoutComponent } from './components/main-layout/main-layout.component';
-import { StoreCreateComponent } from './components/store-create/store-create.component';
-import { StoresListComponent } from './components/stores-list/stores-list.component';
-import { ProductCreateComponent } from './components/product-create/product-create.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { StoreFullInfoComponent } from './components/store-full-info/store-full-info.component';
 
 // Services
 import { AuthService } from "./shared/services/auth.services";
@@ -38,6 +27,17 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
 
+// Components
+import { AppComponent } from './app.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { ProfileInfoComponent } from './components/profile-info/profile-info.component';
+import { MainLayoutComponent } from './components/main-layout/main-layout.component';
+import { StoreCreateComponent } from './components/store-create/store-create.component';
+import { StoresListComponent } from './components/stores-list/stores-list.component';
+import { ProductCreateComponent } from './components/product-create/product-create.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { StoreFullInfoComponent } from './components/store-full-info/store-full-info.component';
 
 @NgModule({
   declarations: [
@@ -69,5 +69,6 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [AuthService, StoreService, ProductService],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
