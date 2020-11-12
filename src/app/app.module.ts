@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 import { AuthService } from "./shared/services/auth.services";
 import { StoreService } from './shared/services/store.service';
 import { ProductService } from './shared/services/product.service';
+import { ImagesInFirestorageService } from './shared/services/images-in-firestorage.service';
 
 // material
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -38,6 +39,7 @@ import { StoresListComponent } from './components/stores-list/stores-list.compon
 import { ProductCreateComponent } from './components/product-create/product-create.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { StoreFullInfoComponent } from './components/store-full-info/store-full-info.component';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,12 @@ import { StoreFullInfoComponent } from './components/store-full-info/store-full-
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [AuthService, StoreService, ProductService],
+  providers: [
+    AuthService,
+    StoreService, 
+    ProductService,
+    ImagesInFirestorageService 
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

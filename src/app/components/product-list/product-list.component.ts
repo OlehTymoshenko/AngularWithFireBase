@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { Product } from '../../shared/models/product';
 import { ProductService } from '../../shared/services/product.service';
 import { Observable, Observer } from 'rxjs';
+import { ImagesInFirestorageService } from 'src/app/shared/services/images-in-firestorage.service';
+import { async } from '@angular/core/testing';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-list',
@@ -12,15 +15,45 @@ import { Observable, Observer } from 'rxjs';
 })
 export class ProductListComponent implements OnInit {
 
-  items: Promise<Product[]> = null;
+  items: Observable<Product[]>;
 
   constructor(
     public productService: ProductService,
-    private router: Router
+    private router: Router,
+    private imageService: ImagesInFirestorageService
   ) { }
 
-  async ngOnInit(): Promise<void> {
-    this.items = this.productService.getAllProductsFromAllStores();
+  ngOnInit() {
+    this.productService.getAllProductsFromAllStores().then(val => this.items = val);
+      // observebleProdArr.pipe(map(prodArr => {
+      //   for(let i = 0; i < prodArr.length; i++) {
+
+      //   }
+      // })).subscribe() 
+      
+      
+      
+      
+      
+      // (async val => {
+      //   if(val !== null || val !== undefined) {
+      //     for(let i = 0; i < val.length; i++) {
+      //       val[i].photoUrl = await this.imageService.getFullUrlToPhoto(val[i].photoUrl);
+      //       this.items.push(val[i]);
+      //     }
+      //   }
+      // })
+
+      // console.log('before subscribe');
+      // observebleProdArr.pipe(map(async val => {
+      //   if(val !== null || val !== undefined) {
+      //     for(let i = 0; i < val.length; i++) {
+      //       val[i].photoUrl = await this.imageService.getFullUrlToPhoto(val[i].photoUrl);
+      //     }
+      //   }
+      //   return val;
+      // })).toPromise().then(async val => this.items = await val);
+    // })
   }
 
   addProduct() {

@@ -5,3 +5,14 @@
 .product-img {
     margin-bottom: 10px;
 }
+
+.mat-button {
+    font-size: 18px;
+    box-shadow: 0 0 2px pink;
+    margin-bottom: 1%;
+}
+
+.card-container {
+    overflow: auto;
+    margin-bottom: 2%;
+}

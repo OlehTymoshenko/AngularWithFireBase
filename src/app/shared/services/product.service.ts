@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { async } from '@angular/core/testing';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, CollectionReference, DocumentChangeAction, DocumentData, DocumentReference } from '@angular/fire/firestore';
 import { Observable, Observer } from 'rxjs';
 import { Product } from '../models/product';
 import { Store } from '../models/store';
+import { ImagesInFirestorageService } from './images-in-firestorage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,51 +17,51 @@ export class ProductService {
 
   constructor(
     private afs: AngularFirestore,
+    private imageService : ImagesInFirestorageService
   ) {
     this.storesRef = afs.collection(this.dbPath);
   }
   
-  async getAllProductsFromAllStores(): Promise<Product[]> {
-    let eachStoreProductsRefs : CollectionReference[];
+  async getAllProductsFromAllStores(): Promise<Observable<Product[]>> {
+    let eachStoreProductsCollectionsRefs : CollectionReference[] = [];
     let docChangeActionArr : DocumentChangeAction<Store>[];
     let allProducts : Observable<Product[]>;
 
 
-    // get arr of links to products collection for every store
-    await this.storesRef.snapshotChanges().toPromise().then(data => {
-      console.log('DAMN2');
-      console.log('docChangeAction' + this.storesRef.toString());
-      docChangeActionArr = data;
-    }).catch(err => console.log(err));
-
-
-    docChangeActionArr.forEach(val => {
-      eachStoreProductsRefs.push(val.payload.doc.ref.collection(this.dbPathToProducts));
-    })
-
-    // get products from references
-    
-    allProducts = new Observable<Product[]>((observer) => {
-      eachStoreProductsRefs.forEach(ref => {
-        
-        ref.get().then(val => {
-          let curStoreProducts : Product[] = null;
-          val.forEach(doc => {
-            curStoreProducts.push(doc.data() as Product);
-          })
-            console.log("ADD PRODUCTS IN OBSERVEBLE:" + JSON.stringify(curStoreProducts)); ////////////////////////////// TEST
-            observer.next(curStoreProducts);
-        })
-        observer.complete();
+   // get arr of links to products collection for every store
+    docChangeActionArr = await new Promise((resolve, reject) => { this.storesRef.snapshotChanges().subscribe(data => {
+        resolve(data);
       })
     })
-    
-    return allProducts.toPromise();
 
+    docChangeActionArr.forEach(val => {
+      console.log(val.payload.doc.ref.path);
+        eachStoreProductsCollectionsRefs.push(val.payload.doc.ref.collection(this.dbPathToProducts));
+    })
+    
+        
+    // get products from references
+    let curStoreProducts: Product[] = [];
+
+    allProducts = new Observable<Product[]>((observer) => {
+      eachStoreProductsCollectionsRefs.forEach(ref => {
+        ref.get().then(val => {
+          val.forEach(doc => {
+            if(doc !== undefined && doc !== null && doc.exists) {
+              curStoreProducts.push(doc.data() as Product);
+            }
+          })
+        })
+      })
+      observer.next(curStoreProducts);
+      observer.complete();
+    })
+    
+    return allProducts;
  }
 
- getAllFromSpecifieldStore(currentStoreRef : AngularFirestoreDocument<Store>) : Promise<DocumentChangeAction<Product>[]> {
-  const productsRef = currentStoreRef.collection<Product>('products');
+ async getAllFromSpecifieldStore(currentStoreRef : AngularFirestoreDocument<Store>) : Promise<DocumentChangeAction<Product>[]> {
+  const productsRef = currentStoreRef.collection<Product>(this.dbPathToProducts);
   return new Promise<DocumentChangeAction<Product>[]>((resolve, reject) => {
     productsRef.snapshotChanges()
       .subscribe(snapshot => {
@@ -68,14 +70,33 @@ export class ProductService {
   })
  }
 
-//  create(product: Product): Promise<DocumentReference> {
-//    return this.productsRef.add({
-//      name: product.name,
-//      price: product.price,
-//      photoUrl: product.photoUrl,
-//      description: product.description
-//    });
-//  }
+ create(storeId: string,  product: Product): Promise<DocumentReference> {
+
+  const productsRef = this.storesRef.doc(storeId).collection(this.dbPathToProducts);
+
+  return productsRef.add({
+     name: product.name,
+     price: product.price,
+     photoUrl: product.photoUrl,
+     description: product.description
+   });
+ }
+
+ private async getFullUrlToPhoto(path : string) : Promise<string>  {
+  let regEx = /(^https?:\/\/)?[a-z0-9~_\-\.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?$/i;
+  let resUrl = "";
+
+  if(regEx.test(path)) {
+    resUrl = path;
+  }
+  else {
+    await this.imageService.downloadImage(path).toPromise().then(x => {
+      resUrl = (x as string)
+    });
+  }
+
+  return resUrl;
+ }
 
 //  update(id:string, store: Product): Promise<void> {
 //    return this.productsRef.doc(id).update(store);

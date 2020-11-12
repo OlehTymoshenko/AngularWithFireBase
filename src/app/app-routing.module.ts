@@ -26,8 +26,8 @@ const routes: Routes = [
       { path: 'store/add', component: StoreCreateComponent },
       { path: 'store/fullInfo/:id', component:  StoreFullInfoComponent},
       { path: 'product/list', component: ProductListComponent },
-      { path: 'product/add', component: ProductCreateComponent },
-      { path:'user-info', component: ProfileInfoComponent },
+      { path: 'product/add/:storeId', component: ProductCreateComponent },
+      { path: 'user-info', component: ProfileInfoComponent },
     ]
   },
   { path: '', redirectTo: '/dashboard/user-info', pathMatch: 'full' }

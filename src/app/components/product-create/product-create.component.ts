@@ -1,8 +1,9 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ProductService } from '../../shared/services/product.service'
+import { ActivatedRoute, Router } from '@angular/router';
+import { Product } from 'src/app/shared/models/product';
+import { ImagesInFirestorageService } from 'src/app/shared/services/images-in-firestorage.service';
+import { ProductService } from '../../shared/services/product.service';
 
 @Component({
   selector: 'app-product-create',
@@ -11,7 +12,12 @@ import { ProductService } from '../../shared/services/product.service'
 })
 export class ProductCreateComponent implements OnInit {
 
+  PATH_TO_PRODUCTS_IMAGES_IN_STORAGE : string = 'products/images';
+
   addProductForm: FormGroup;
+  isImageUploadingNow = false;
+  imagePathInStorage = "";
+
   
   validation_messages = {
     'name': [
@@ -31,7 +37,9 @@ export class ProductCreateComponent implements OnInit {
 
   constructor(
     public productService: ProductService,
+    private imageService: ImagesInFirestorageService,
     private router: Router,
+    private routeParams : ActivatedRoute,
     private fb: FormBuilder
   ) { }
 
@@ -43,8 +51,7 @@ export class ProductCreateComponent implements OnInit {
     this.addProductForm = this.fb.group({
       name: new FormControl('', Validators.required),
       price: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
-      photoUrl: new FormControl('', Validators.required)
+      description: new FormControl('', Validators.required)
     }) 
 
   }
@@ -53,21 +60,33 @@ export class ProductCreateComponent implements OnInit {
     this.addProductForm = this.fb.group({
       name: [ '', Validators.required ],
       price: [ '', Validators.required ],
-      description: [ '', Validators.required ],
-      photoUrl: ['', Validators.required]
+      description: [ '', Validators.required ]
     });
   }
 
-  onSubmit(value) {
-    this.productService
+   fileChange(event) {
+    let fileList : FileList = event.target.files;
 
-    // this.productService.create(value)
-    //   .then(
-    //     res => {
-    //       this.resetFields();
-    //       this.router.navigate(['/dashboard/product/list']);
-    //     }
-    //   );
+    if(fileList.length > 0) {
+      const file = fileList[0];
+      this.isImageUploadingNow = true;
+      this.imageService.uploadImage(file, this.PATH_TO_PRODUCTS_IMAGES_IN_STORAGE).then(async val => {
+           this.imagePathInStorage = await val.ref.fullPath;
+      }).finally(() => this.isImageUploadingNow = false);
+    }
+  }
+
+  onSubmit(value: Product) {
+    let storeId = this.routeParams.snapshot.paramMap.get('storeId');
+    value.photoUrl = this.imagePathInStorage;
+    this.productService.create(storeId, value)
+      .then(
+        res => {
+          console.log('new product added successfully');
+          this.resetFields();
+          this.router.navigate(['/dashboard/store/fullInfo', storeId]);
+        }
+      );
   }
 
 }
