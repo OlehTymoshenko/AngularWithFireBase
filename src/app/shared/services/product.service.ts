@@ -22,11 +22,10 @@ export class ProductService {
     this.storesRef = afs.collection(this.dbPath);
   }
   
-  async getAllProductsFromAllStores(): Promise<Observable<Product[]>> {
-    let eachStoreProductsCollectionsRefs : CollectionReference[] = [];
+  async getAllProductsFromAllStores(): Promise<Product[]> {
+    let eachStoreProductCollectionRefs : CollectionReference[] = [];
     let docChangeActionArr : DocumentChangeAction<Store>[];
-    let allProducts : Observable<Product[]>;
-
+    let allProducts : Product[]= [];
 
    // get arr of links to products collection for every store
     docChangeActionArr = await new Promise((resolve, reject) => { this.storesRef.snapshotChanges().subscribe(data => {
@@ -36,26 +35,20 @@ export class ProductService {
 
     docChangeActionArr.forEach(val => {
       console.log(val.payload.doc.ref.path);
-        eachStoreProductsCollectionsRefs.push(val.payload.doc.ref.collection(this.dbPathToProducts));
+      eachStoreProductCollectionRefs.push(val.payload.doc.ref.collection(this.dbPathToProducts));
     })
-    
         
     // get products from references
-    let curStoreProducts: Product[] = [];
+    for(let i = 0; i < eachStoreProductCollectionRefs.length; i++) {
+      let collRef = await eachStoreProductCollectionRefs[i].get();
 
-    allProducts = new Observable<Product[]>((observer) => {
-      eachStoreProductsCollectionsRefs.forEach(ref => {
-        ref.get().then(val => {
-          val.forEach(doc => {
-            if(doc !== undefined && doc !== null && doc.exists) {
-              curStoreProducts.push(doc.data() as Product);
-            }
-          })
-        })
-      })
-      observer.next(curStoreProducts);
-      observer.complete();
-    })
+      for(let docsCounter = 0; docsCounter < collRef.docs.length; docsCounter++) {
+        if(collRef.docs[docsCounter] !== undefined && collRef.docs[docsCounter] !== null &&
+          collRef.docs[docsCounter].exists) {
+            allProducts.push(collRef.docs[docsCounter].data() as Product);
+        }
+      }
+    }
     
     return allProducts;
  }

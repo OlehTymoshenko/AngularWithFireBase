@@ -15,7 +15,7 @@ import { map } from 'rxjs/operators';
 })
 export class ProductListComponent implements OnInit {
 
-  items: Observable<Product[]>;
+  items: Product[];
 
   constructor(
     public productService: ProductService,
@@ -23,37 +23,12 @@ export class ProductListComponent implements OnInit {
     private imageService: ImagesInFirestorageService
   ) { }
 
-  ngOnInit() {
-    this.productService.getAllProductsFromAllStores().then(val => this.items = val);
-      // observebleProdArr.pipe(map(prodArr => {
-      //   for(let i = 0; i < prodArr.length; i++) {
-
-      //   }
-      // })).subscribe() 
-      
-      
-      
-      
-      
-      // (async val => {
-      //   if(val !== null || val !== undefined) {
-      //     for(let i = 0; i < val.length; i++) {
-      //       val[i].photoUrl = await this.imageService.getFullUrlToPhoto(val[i].photoUrl);
-      //       this.items.push(val[i]);
-      //     }
-      //   }
-      // })
-
-      // console.log('before subscribe');
-      // observebleProdArr.pipe(map(async val => {
-      //   if(val !== null || val !== undefined) {
-      //     for(let i = 0; i < val.length; i++) {
-      //       val[i].photoUrl = await this.imageService.getFullUrlToPhoto(val[i].photoUrl);
-      //     }
-      //   }
-      //   return val;
-      // })).toPromise().then(async val => this.items = await val);
-    // })
+  async ngOnInit() {
+    this.items = await this.productService.getAllProductsFromAllStores();
+    
+    for(let i = 0; i < this.items.length; i++) {
+      this.items[i].photoUrl = await this.imageService.getFullUrlToPhoto(this.items[i].photoUrl);
+    }
   }
 
   addProduct() {

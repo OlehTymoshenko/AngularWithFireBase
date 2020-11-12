@@ -7,30 +7,30 @@
             </button>
         </div>
     </div>
-        <!-- Show user data when logged in -->
-        <div class="">
-            <div class="row row-container">
-                <div *ngFor="let item of items" class="col-sm-12 col-md-6 col-lg-2 card-container">
-                    <mat-card>
-                        <mat-card-header>
-                            <mat-card-title>
-                                <h2> Store name: <strong> {{item.payload.doc.data().name}} </strong> </h2>
-                            </mat-card-title>
-                            <mat-card-subtitle>
-                                <h3> Address: <strong> {{item.payload.doc.data().address}} </strong> </h3>
-                                <h3> Phone number: <strong> {{item.payload.doc.data().phoneNumber}} </strong> </h3>
-                            </mat-card-subtitle>
-                        </mat-card-header>
+    <!-- Show user data when logged in -->
+    <div class="">
+        <div class="row row-container">
+            <div *ngFor="let item of items" class="col-sm-12 col-md-6 col-lg-3 card-container">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>
+                            <h2> Store name: <strong> {{item.payload.doc.data().name}} </strong> </h2>
+                        </mat-card-title>
+                        <mat-card-subtitle>
+                            <h3> Address: <strong> {{item.payload.doc.data().address}} </strong> </h3>
+                            <h3> Phone number: <strong> {{item.payload.doc.data().phoneNumber}} </strong> </h3>
+                        </mat-card-subtitle>
+                    </mat-card-header>
 
-                        <mat-card-actions>
-                            <div class="button-container text-center">
-                                <button mat-button color="accent" (click)="viewDetails(item.payload.doc.id)">
+                    <mat-card-actions>
+                        <div class="button-container text-center">
+                            <button mat-button color="accent" (click)="viewDetails(item.payload.doc.id)">
                                     Go to store products                
                                 </button>
-                            </div>
-                        </mat-card-actions>
-                    </mat-card>
-                </div>
+                        </div>
+                    </mat-card-actions>
+                </mat-card>
             </div>
+        </div>
     </div>
 </div>

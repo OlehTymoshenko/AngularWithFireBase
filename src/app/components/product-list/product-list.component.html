@@ -1,16 +1,14 @@
 <div class="">
     <div class="list-header">
         <div class="text-center">
-            <h1>  All products from all stores </h1>
+            <h1> All products from all stores </h1>
         </div>
         <!-- Show user data when logged in -->
         <div class="">
             <div class="row row-container">
-                <div *ngFor="let item of items | async" class="col-sm-12 col-md-6 col-lg-3 card-container">          
-                    <div> asdasdasd</div>        
+                <div *ngFor="let item of items" class="col-sm-12 col-md-6 col-lg-3 card-container">
                     <mat-card class="">
-                        <img mat-card-image src="{{item.photoUrl}}" 
-                            width="250" height="250" class="product-img" [alt]="item.name">
+                        <img mat-card-image src="{{item.photoUrl}}" width="250" height="250" class="product-img" [alt]="item.name">
                         <mat-card-title>
                             <h2>Product: {{ item.name}}</h2>
                         </mat-card-title>
