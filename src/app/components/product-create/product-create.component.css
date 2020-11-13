@@ -16,9 +16,10 @@
     font-weight: 700;
     color: palevioletred;
     display: inline-block;
+    cursor: pointer;
 }
 
-.input-file-block label : :hover {
+.input-file-block label :hover {
     color: palevioletred;
     background-color: whitesmoke;
 }
