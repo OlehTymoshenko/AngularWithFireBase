@@ -1,0 +1,26 @@
+.input-file {
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.input-file-block {
+    margin: 10px;
+}
+
+.input-file-block label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: palevioletred;
+    display: inline-block;
+}
+
+.input-file-block label : :hover {
+    color: palevioletred;
+    background-color: whitesmoke;
+}
+
+
